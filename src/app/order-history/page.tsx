@@ -6,7 +6,7 @@ import { Order } from "@/app/lib/order-types";
 import Header from "@/app/components/layout/Header";
 import Footer from "@/app/components/layout/Footer";
 import styles from "./page.module.css";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 export default function OrderHistoryPage() {
   const router = useRouter();
