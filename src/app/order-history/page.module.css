@@ -1,0 +1,175 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main {
+  flex: 1;
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: var(--spacing-lg) var(--spacing-md);
+  width: 100%;
+}
+
+.header {
+  margin-bottom: var(--spacing-xl);
+  text-align: center;
+}
+
+.title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-xs);
+}
+
+.date {
+  font-size: var(--font-size-md);
+  color: var(--color-text-secondary);
+}
+
+.loading,
+.error,
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-xl);
+  text-align: center;
+}
+
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-top-color: var(--color-primary);
+  animation: spin 1s ease-in-out infinite;
+  margin-bottom: var(--spacing-md);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.retryButton {
+  margin-top: var(--spacing-md);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.orderList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.orderCard {
+  background-color: var(--color-background);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  transition: transform var(--transition-normal);
+}
+
+.orderCard:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.orderHeader {
+  padding: var(--spacing-md);
+  background-color: var(--color-secondary);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.teamName {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  margin: 0;
+}
+
+.memberCount {
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+}
+
+.orderItems {
+  padding: var(--spacing-md);
+}
+
+.orderItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-sm) 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.orderItem:last-child {
+  border-bottom: none;
+}
+
+.menuName {
+  flex: 2;
+  font-weight: var(--font-weight-medium);
+}
+
+.quantity {
+  flex: 0.5;
+  text-align: center;
+  color: var(--color-text-secondary);
+}
+
+.price {
+  flex: 1;
+  text-align: right;
+  color: var(--color-text-primary);
+}
+
+.orderFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-md);
+  background-color: var(--color-background-secondary);
+  border-top: 1px solid var(--color-border);
+}
+
+.orderTime {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.totalPrice {
+  color: var(--color-text-primary);
+  font-size: var(--font-size-md);
+}
+
+.totalPrice strong {
+  color: var(--color-primary);
+  font-weight: var(--font-weight-bold);
+}
+
+@media (max-width: 768px) {
+  .orderList {
+    grid-template-columns: 1fr;
+  }
+
+  .title {
+    font-size: var(--font-size-xl);
+  }
+}

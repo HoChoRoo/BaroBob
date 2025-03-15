@@ -1,0 +1,7 @@
+:root {
+  --color-primary: #e63312; /* 신세계아이앤씨 빨간색 */
+  --color-primary-dark: #c52d10;
+  --color-secondary: #222222; /* 검정색 */
+  --color-secondary-dark: #000000;
+  /* 기타 변수들... */
+}
