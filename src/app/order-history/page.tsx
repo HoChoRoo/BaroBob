@@ -1,19 +1,34 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { fetchOrderHistory } from "@/app/lib/api";
+import { useRouter } from "next/navigation";
+import { fetchOrderHistory, deleteOrder } from "@/app/lib/api";
 import { Order } from "@/app/lib/order-types";
 import Header from "@/app/components/layout/Header";
 import Footer from "@/app/components/layout/Footer";
 import styles from "./page.module.css";
 
 export default function OrderHistoryPage() {
+  const router = useRouter();
   const [orders, setOrders] = useState<Order[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
+
   useEffect(() => {
     async function loadOrders() {
       try {
+        // 권한 체크 (예: 로그인 상태 확인 또는 세션 스토리지에 데이터가 있는지)
+        const hasAccess =
+          sessionStorage.getItem("orderTeam") ||
+          sessionStorage.getItem("completedOrder");
+
+        if (!hasAccess) {
+          // 접근 권한이 없으면 홈페이지로 리다이렉트
+          router.replace("/");
+          return;
+        }
+
         setIsLoading(true);
         const data = await fetchOrderHistory();
         setOrders(data);
@@ -27,7 +42,29 @@ export default function OrderHistoryPage() {
     }
 
     loadOrders();
-  }, []);
+  }, [router]);
+
+  const handleDeleteOrder = async (orderId: string) => {
+    // 삭제 확인
+    if (!window.confirm("정말로 이 주문을 삭제하시겠습니까?")) {
+      return;
+    }
+
+    try {
+      setIsDeleting(true);
+      await deleteOrder(orderId);
+
+      // 주문 목록에서 삭제된 주문 제거
+      setOrders(orders.filter((order) => order.id !== orderId));
+
+      alert("주문이 성공적으로 삭제되었습니다.");
+    } catch (error) {
+      console.error("Failed to delete order:", error);
+      alert("주문 삭제 중 오류가 발생했습니다.");
+    } finally {
+      setIsDeleting(false);
+    }
+  };
 
   return (
     <div className={styles.container}>
@@ -101,6 +138,16 @@ export default function OrderHistoryPage() {
                       총 금액:{" "}
                       <strong>{order.totalPrice.toLocaleString()}원</strong>
                     </span>
+                  </div>
+
+                  <div className={styles.orderActions}>
+                    <button
+                      className={styles.deleteBtn}
+                      onClick={() => handleDeleteOrder(order.id)}
+                      disabled={isDeleting}
+                    >
+                      삭제
+                    </button>
                   </div>
                 </div>
               ))

@@ -86,13 +86,12 @@ function OrderPageContent() {
       <Header />
 
       <main className={styles.main}>
-        {/* 주문 정보 표시 (팀과 인원수가 있는 경우) */}
         {team && memberCount > 0 && (
-          <div className={styles.orderInfo}>
-            <h2 className={styles.orderInfoTitle}>주문 정보</h2>
-            <div className={styles.orderInfoDetails}>
-              <span className={styles.teamName}>{team}</span>
-              <span className={styles.memberCount}>{memberCount}명</span>
+          <div className={styles.infoBanner}>
+            <div className={styles.infoContainer}>
+              <div className={styles.infoContent}>
+                {team} - {memberCount}명
+              </div>
             </div>
           </div>
         )}

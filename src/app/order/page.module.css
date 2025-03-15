@@ -105,3 +105,25 @@
     font-size: var(--font-size-sm);
   }
 }
+
+.infoBanner {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  margin: 16px auto;
+  max-width: 640px;
+  width: 100%;
+}
+
+.infoContainer {
+  padding: 12px;
+}
+
+.infoContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+  text-align: center;
+}
