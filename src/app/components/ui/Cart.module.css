@@ -1,0 +1,112 @@
+.cartContainer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--color-background);
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  max-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--transition-normal);
+}
+
+.cartHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-top: 2px solid var(--color-primary);
+  cursor: pointer;
+  background-color: var(--color-background);
+}
+
+.cartSummary {
+  display: flex;
+  align-items: center;
+}
+
+.cartTitle {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  margin-right: var(--spacing-sm);
+}
+
+.cartBadge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-primary);
+  color: white;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+}
+
+.totalPrice {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+}
+
+.toggleBtn {
+  background: none;
+  border: none;
+  color: var(--color-text-primary);
+  font-size: var(--font-size-md);
+  margin-left: var(--spacing-md);
+  cursor: pointer;
+}
+
+.cartContent {
+  max-height: calc(70vh - 60px);
+  overflow-y: auto;
+}
+
+.cartItems {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.emptyCart {
+  padding: var(--spacing-xl);
+  text-align: center;
+  color: var(--color-text-tertiary);
+}
+
+.cartFooter {
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-top: 1px solid var(--color-border);
+}
+
+.cartActions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+@media (max-width: 768px) {
+  .cartContainer {
+    max-height: 80vh;
+  }
+
+  .cartHeader {
+    padding: var(--spacing-sm) var(--spacing-md);
+  }
+
+  .cartTitle {
+    font-size: var(--font-size-md);
+  }
+
+  .totalPrice {
+    font-size: var(--font-size-md);
+  }
+
+  .cartFooter {
+    padding: var(--spacing-sm) var(--spacing-md);
+  }
+}
