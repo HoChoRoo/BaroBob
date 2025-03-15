@@ -1,0 +1,149 @@
+.footer {
+  background-color: var(--color-secondary);
+  color: white;
+  padding: var(--spacing-xl) 0;
+  margin-top: auto;
+}
+
+.container {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 var(--spacing-lg);
+}
+
+.top {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xl);
+  margin-bottom: var(--spacing-xl);
+  padding-bottom: var(--spacing-xl);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logoSection {
+  flex: 1;
+  min-width: 250px;
+}
+
+.footerLogo {
+  margin-bottom: var(--spacing-md);
+  filter: brightness(0) invert(1);
+}
+
+.tagline {
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: var(--spacing-sm);
+  font-size: var(--font-size-sm);
+}
+
+.linksSection {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xl);
+  flex: 2;
+}
+
+.linkColumn {
+  min-width: 150px;
+}
+
+.linkTitle {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--spacing-md);
+  color: white;
+}
+
+.linkList {
+  list-style: none;
+}
+
+.link {
+  display: block;
+  padding: var(--spacing-xs) 0;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: var(--font-size-sm);
+  transition: color var(--transition-fast);
+}
+
+.link:hover {
+  color: var(--color-primary);
+}
+
+.bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-lg);
+}
+
+.infoSection {
+  flex: 1;
+  min-width: 250px;
+}
+
+.companyInfo {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: var(--font-size-xs);
+  margin-bottom: var(--spacing-xs);
+}
+
+.copyright {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: var(--font-size-xs);
+  margin-top: var(--spacing-sm);
+}
+
+.socialSection {
+  display: flex;
+  gap: var(--spacing-md);
+}
+
+.socialLink {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  background-color: rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  transition: background-color var(--transition-normal);
+}
+
+.socialLink:hover {
+  background-color: var(--color-primary);
+}
+
+.socialIcon {
+  font-size: 0;
+  text-indent: -9999px;
+  display: block;
+  width: 20px;
+  height: 20px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+@media (max-width: 768px) {
+  .top {
+    flex-direction: column;
+    gap: var(--spacing-lg);
+  }
+
+  .linksSection {
+    flex-direction: column;
+    gap: var(--spacing-lg);
+  }
+
+  .bottom {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .socialSection {
+    margin-top: var(--spacing-md);
+  }
+}
