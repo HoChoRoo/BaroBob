@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  createContext,
-  useContext,
-  useState,
-  ReactNode,
-  useEffect,
-  Context,
-} from "react";
+import { createContext, useState, ReactNode, useEffect, Context } from "react";
 import { CartItem, MenuItem } from "../lib/types";
 
 interface CartContextType {

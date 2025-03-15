@@ -2,17 +2,20 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { CartProvider } from "@/app/hooks/useCart";
+import { CartProvider, useCart } from "@/app/hooks/useCart";
 import Header from "@/app/components/layout/Header";
 import Footer from "@/app/components/layout/Footer";
 import MenuSection from "@/app/components/section/MenuSection";
 import CategorySection from "@/app/components/section/CategorySection";
 import Cart from "@/app/components/ui/Cart";
+import { createOrder } from "@/app/lib/api";
 import styles from "./page.module.css";
 import { CATEGORIES } from "../lib/constants";
 
-export default function OrderPage() {
+// 내부 컴포넌트로 분리
+function OrderPageContent() {
   const router = useRouter();
+  const { items: cartItems, clearCart } = useCart();
   const [isCheckingOut, setIsCheckingOut] = useState(false);
   const [activeCategory, setActiveCategory] = useState(CATEGORIES[0].name);
   const [team, setTeam] = useState<string>("");
@@ -40,11 +43,25 @@ export default function OrderPage() {
   };
 
   const handleCheckout = async () => {
+    console.log("Checkout initiated, items:", cartItems);
+    console.log("Items length:", cartItems.length);
+
+    if (cartItems.length === 0) {
+      alert("장바구니가 비어 있습니다. 메뉴를 선택해주세요.");
+      return;
+    }
+
     setIsCheckingOut(true);
 
     try {
-      // Mock API call - 실제로는 백엔드로 주문 데이터를 전송합니다
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      // 백엔드 API 호출
+      await createOrder(team, memberCount, cartItems);
+
+      // 주문 완료 후 장바구니 비우기
+      clearCart();
+
+      // 주문 완료 표시를 세션 스토리지에 저장 (주문 내역 페이지 접근용)
+      sessionStorage.setItem("completedOrder", "true");
 
       // 주문 완료 후 팀 정보와 인원수 표시
       let successMessage = "주문이 완료되었습니다.";
@@ -65,32 +82,48 @@ export default function OrderPage() {
   };
 
   return (
-    <CartProvider>
-      <div className={styles.container}>
-        <Header />
+    <div className={styles.container}>
+      <Header />
 
-        <main className={styles.main}>
-          {/* 주문 정보 표시 (팀과 인원수가 있는 경우) */}
-
-          <CategorySection
-            activeCategory={activeCategory}
-            onSelectCategory={handleCategoryChange}
-          />
-
-          <MenuSection activeCategory={activeCategory} />
-        </main>
-
-        <Footer />
-
-        <Cart onCheckout={handleCheckout} />
-
-        {isCheckingOut && (
-          <div className={styles.loadingOverlay}>
-            <div className={styles.spinner}></div>
-            <p>주문 처리 중...</p>
+      <main className={styles.main}>
+        {/* 주문 정보 표시 (팀과 인원수가 있는 경우) */}
+        {team && memberCount > 0 && (
+          <div className={styles.orderInfo}>
+            <h2 className={styles.orderInfoTitle}>주문 정보</h2>
+            <div className={styles.orderInfoDetails}>
+              <span className={styles.teamName}>{team}</span>
+              <span className={styles.memberCount}>{memberCount}명</span>
+            </div>
           </div>
         )}
-      </div>
+
+        <CategorySection
+          activeCategory={activeCategory}
+          onSelectCategory={handleCategoryChange}
+        />
+
+        <MenuSection activeCategory={activeCategory} />
+      </main>
+
+      <Footer />
+
+      <Cart onCheckout={handleCheckout} />
+
+      {isCheckingOut && (
+        <div className={styles.loadingOverlay}>
+          <div className={styles.spinner}></div>
+          <p>주문 처리 중...</p>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// 메인 OrderPage 컴포넌트
+export default function OrderPage() {
+  return (
+    <CartProvider>
+      <OrderPageContent />
     </CartProvider>
   );
 }

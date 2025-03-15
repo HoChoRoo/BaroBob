@@ -13,3 +13,11 @@ export interface Order {
   totalPrice: number;
   orderDate: string;
 }
+
+// 백엔드로 보낼 주문 데이터 타입
+export interface OrderRequest {
+  teamName: string;
+  memberCount: number;
+  items: OrderItem[];
+  totalPrice: number;
+}

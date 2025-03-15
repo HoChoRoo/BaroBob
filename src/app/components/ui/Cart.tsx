@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import styles from "./Cart.module.css";
 import CartItem from "./CartItem";
 import Button from "./Button";
-import { useCart } from "../../hooks/useCart";
+import { useCart } from "@/app/hooks/useCart";
 
 interface CartProps {
   onCheckout: () => void;
@@ -12,13 +12,15 @@ interface CartProps {
 
 const Cart: React.FC<CartProps> = ({ onCheckout }) => {
   const { items, totalItems, totalPrice, clearCart } = useCart();
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(true);
 
   const toggleCart = () => {
     setIsExpanded((prev) => !prev);
   };
 
   const handleCheckout = () => {
+    // items.length 체크는 이미 버튼의 disabled 속성으로 처리되고 있으므로
+    // 여기서는 단순히 onCheckout을 호출하기만 합니다
     onCheckout();
   };
 

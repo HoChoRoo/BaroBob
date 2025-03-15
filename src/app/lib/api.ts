@@ -1,62 +1,75 @@
 "use client";
 
-import { Order } from "./order-types";
+import { CartItem } from "./types"; // 타입 임포트 경로는 프로젝트에 맞게 조정하세요
 
-// 더미 데이터 생성
-const DUMMY_ORDERS: Order[] = [
-  {
-    id: "order-001",
-    teamName: "프론트엔드팀",
-    memberCount: 3,
-    items: [
-      { menuName: "김치우동정식", price: 10000, quantity: 1 },
-      { menuName: "돈까스정식", price: 8900, quantity: 2 },
-    ],
-    totalPrice: 27800,
-    orderDate: "2025-03-15T12:00:00",
-  },
-  {
-    id: "order-002",
-    teamName: "백엔드팀",
-    memberCount: 4,
-    items: [
-      { menuName: "가츠나베정식", price: 10000, quantity: 2 },
-      { menuName: "김치치즈가츠나베", price: 12500, quantity: 2 },
-    ],
-    totalPrice: 45000,
-    orderDate: "2025-03-15T12:15:00",
-  },
-  {
-    id: "order-003",
-    teamName: "디자인팀",
-    memberCount: 2,
-    items: [
-      { menuName: "해물오뎅우동정식", price: 13000, quantity: 1 },
-      { menuName: "냉모밀돈까스", price: 12500, quantity: 1 },
-    ],
-    totalPrice: 25500,
-    orderDate: "2025-03-15T12:30:00",
-  },
-  {
-    id: "order-004",
-    teamName: "기획팀",
-    memberCount: 5,
-    items: [
-      { menuName: "안심까스정식", price: 11500, quantity: 3 },
-      { menuName: "김치가츠동", price: 9000, quantity: 2 },
-    ],
-    totalPrice: 52500,
-    orderDate: "2025-03-15T12:45:00",
-  },
-];
+// API 기본 URL (환경에 맞게 수정)
+const API_BASE_URL = "http://localhost:8080";
 
-// 주문 내역을 가져오는 API 함수
-export async function fetchOrderHistory(): Promise<Order[]> {
-  // 실제로는 백엔드 API를 호출하지만, 지금은 더미 데이터 사용
-  // return fetch('/api/orders').then(res => res.json());
+/**
+ * 주문 내역을 가져오는 함수
+ */
+export async function fetchOrderHistory() {
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/orders`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
-  // 백엔드 API 호출을 시뮬레이션하기 위한 지연
-  await new Promise((resolve) => setTimeout(resolve, 800));
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status}`);
+    }
 
-  return DUMMY_ORDERS;
+    return await response.json();
+  } catch (error) {
+    console.error("Order history fetch failed:", error);
+    throw error;
+  }
+}
+
+/**
+ * 새로운 주문을 생성하는 함수
+ */
+export async function createOrder(
+  teamName: string,
+  memberCount: number,
+  cartItems: CartItem[]
+) {
+  try {
+    // 백엔드 API 형식에 맞게 데이터 구성
+    const orderData = {
+      teamName,
+      memberCount,
+      items: cartItems.map((item) => ({
+        menuName: item.name,
+        price: item.price,
+        quantity: item.quantity || 1,
+      })),
+      totalPrice: cartItems.reduce(
+        (sum, item) => sum + item.price * (item.quantity || 1),
+        0
+      ),
+      orderDate: new Date().toISOString(),
+    };
+
+    console.log("Sending order data:", orderData);
+
+    const response = await fetch(`${API_BASE_URL}/api/saveOrder`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(orderData),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status}`);
+    }
+
+    return await response.text();
+  } catch (error) {
+    console.error("Order creation failed:", error);
+    throw error;
+  }
 }
