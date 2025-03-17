@@ -290,6 +290,14 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 12500,
     imageUrl: "/images/menu/croquette.png",
     category: "돈까스류",
-    description: "ㅇㅇ",
+    description: "칠리철판돈까스",
+  },
+  {
+    id: 36,
+    name: "음료",
+    price: 2000,
+    imageUrl: "/images/menu/croquette.png",
+    category: "사이드",
+    description: "음료는 직접 가서 선택해주세요.",
   },
 ];
