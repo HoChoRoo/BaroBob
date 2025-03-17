@@ -284,4 +284,12 @@ export const MENU_ITEMS: MenuItem[] = [
     category: "사이드",
     description: "공기밥은 무료입니다 양심없이 시킨다면 서비스 제외될수도..",
   },
+  {
+    id: 35,
+    name: "칠리철판돈까스",
+    price: 12500,
+    imageUrl: "/images/menu/croquette.png",
+    category: "돈까스류",
+    description: "ㅇㅇ",
+  },
 ];
