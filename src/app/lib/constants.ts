@@ -127,14 +127,7 @@ export const MENU_ITEMS: MenuItem[] = [
   },
 
   // 덮밥류
-  {
-    id: 15,
-    name: "김치가츠동",
-    price: 9000,
-    imageUrl: "/images/menu/kimchi-katsudon.png",
-    category: "덮밥류",
-    description: "김치와 가츠가 올라간 덮밥",
-  },
+
   {
     id: 16,
     name: "가츠동",
@@ -299,5 +292,13 @@ export const MENU_ITEMS: MenuItem[] = [
     imageUrl: "/images/menu/croquette.png",
     category: "사이드",
     description: "음료는 직접 가서 선택해주세요.",
+  },
+  {
+    id: 17,
+    name: "카레가츠나베정식",
+    price: 11500,
+    imageUrl: "/images/menu/chicken-katsu-set.png",
+    category: "정식류",
+    description: "카레가츠나베정식",
   },
 ];
