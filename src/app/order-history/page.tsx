@@ -121,7 +121,7 @@ export default function OrderHistoryPage() {
                           {item.quantity}개
                         </span>
                         <span className={styles.price}>
-                          {item.price.toLocaleString()}원
+                          {(item.price * item.quantity).toLocaleString()}원
                         </span>
                       </div>
                     ))}
