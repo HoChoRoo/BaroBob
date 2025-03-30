@@ -4,7 +4,7 @@ import { Order, OrderRequest } from "./order-types";
 import { CartItem } from "./types";
 
 // API 기본 URL (환경에 맞게 수정)
-const API_BASE_URL = "http://10.10.10.218:8080";
+const API_BASE_URL = "http://10.10.10.228:8080";
 
 /**
  * 주문 내역을 가져오는 함수
